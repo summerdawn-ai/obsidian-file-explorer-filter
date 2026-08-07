@@ -66,8 +66,8 @@ export default class FileExplorerFilterPlugin extends Plugin {
 		this.registerEvent(this.app.vault.on("rename", () => this.scheduleRefresh()));
 
 		this.addCommand({
-			id: "show-file-explorer-filter-menu",
-			name: "Show File Explorer Filter menu",
+			id: "show-filter-menu",
+			name: "Show filter menu",
 			callback: () => this.showFilterMenu(),
 		});
 		this.addCommand({
@@ -166,7 +166,7 @@ export default class FileExplorerFilterPlugin extends Plugin {
 				if (toolbar) {
 					// Register one button per explorer container because workspaces can
 					// contain multiple File explorer leaves.
-					const button = document.createElement("div");
+					const button = container.createDiv();
 					button.addClass("clickable-icon", "nav-action-button");
 					button.addClass(BUTTON_CLASS);
 					button.setAttribute("aria-label", "Filter File explorer");
@@ -453,7 +453,6 @@ class FileExplorerFilterSettingTab extends PluginSettingTab {
 	display(): void {
 		const { containerEl } = this;
 		containerEl.empty();
-		new Setting(containerEl).setName("File Explorer Filter").setHeading();
 
 		new Setting(containerEl)
 			.setName("Show name filter")
