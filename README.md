@@ -1,49 +1,77 @@
-# Obsidian Plugins
+# File Explorer Filter
 
-Plugins for the Obsidian note-taking application.
+Plugin for Obsidian to provide filtering on top-level folders in the File explorer.
 
 ## Overview
 
-The current plugins are geared towards users who are migrating from OneNote to Obsidian.
+File Explorer Filter adds a filter button to Obsidian's File explorer to switch the view between All folders or one specific top-level folder. Switch context without maintaining multiple notebooks - like OneNote sections.
 
-### Plugins
+### Features
 
-- [Drag and Drop Sort](src/drag-drop-sort/README.md): Adds drag-and-drop custom ordering to the Obsidian File explorer with interspersed files and folders.
-- [File Explorer Filter](src/file-explorer-filter/README.md): Filters the Obsidian File explorer by top-level folder and `[DONE]` status.
+- **Switch Folder Context**: Easily switch visual context between folders while staying in the same notebook.
+- **Completed Notes**: Hide completed notes using a customizable pattern, such as `[DONE]`.
+- **CSS-Based**: Use filtering alongside other File explorer plugins, including Drag and Drop Sort.
+- **Non-Destructive**: Keep hidden items available through search, links, backlinks, and the quick switcher.
+
+## Installation
+
+### Community Plugins
+
+Open **Settings → Community plugins → Browse**, search for **File Explorer Filter**, then select **Install** and **Enable**.
+
+### Manual
+
+1. Build the plugin:
+
+  ```bash
+  cd src
+  npm install
+  npm run build
+  ```
+
+2. Copy `src/dist/main.js`, `manifest.json`, and `src/styles.css` into `.obsidian/plugins/file-explorer-filter/`.
+
+3. Enable **File Explorer Filter** under **Settings > Community plugins**.
+
+## Usage
+
+Select the filter icon in the File explorer toolbar, then choose **All folders** or a top-level folder such as **Career**. You can independently toggle **Hide names containing "[DONE]"**.
+
+Under **Settings > File Explorer Filter**, enable or disable the name-filter menu option and replace `[DONE]` with any non-empty text. Name matching is case-insensitive and can occur anywhere in a file or folder name; empty or whitespace-only settings are rejected.
+
+You can also use the command palette commands **File Explorer Filter: Show File Explorer Filter menu** and **File Explorer Filter: Toggle files and folders matching the name filter**.
+
+
+## How it Works
+
+When the plugin loads, it waits for the workspace layout and then applies the saved folder and name filters to every File explorer view. It also reruns this setup when Obsidian rebuilds the explorer, and refreshes the view when files are created, deleted, or renamed.
+
+The filter keeps explorer rows in the DOM and applies a CSS class to rows outside the selected folder or matching the configured name pattern. When the filter changes, the view is refreshed; switching folders also invalidates Obsidian's virtual-scroll layout so the visible rows are recalculated immediately. The plugin does not patch `getSortedFolderItems()` or alter vault files, so it remains independent from explorer sorting plugins.
 
 ## Versioning and Releases
 
-All plugins are built and released using [the repository's `release.yml` workflow](.github/workflows/release.yml). They are versioned independently using [Semantic Versioning](https://semver.org/).
+This plugin is built and released using [the repository's `release.yml` workflow](.github/workflows/release.yml). It is versioned using [Semantic Versioning](https://semver.org/).
 
-Each plugin is published as a separate community plugin, with release assets published to a corresponding GitHub Release:
+It is published as a community plugin, with release assets published to a corresponding GitHub Release:
 
-- GitHub Releases:
-  - [Drag and Drop Sort](https://github.com/summerdawn-ai/obsidian-drag-drop-sort/releases)
-  - [File Explorer Filter](https://github.com/summerdawn-ai/obsidian-file-explorer-filter/releases)
-- Community plugins:
-  - [Drag and Drop Sort](https://community.obsidian.md/plugins/drag-drop-sort)
-  - [File Explorer Filter](https://community.obsidian.md/plugins/file-explorer-filter)
+- [GitHub Releases](https://github.com/summerdawn-ai/obsidian-file-explorer-filter/releases)
+- [File Explorer Filter on Community plugins](https://community.obsidian.md/plugins/file-explorer-filter)
 
 ## Development
 
-Load a plugin unpacked from its folder under `src/`:
-
-1. Open the plugin folder.
-2. Install dependencies with `npm install`.
-3. Run `npm run dev` for watch mode or `npm run build` for a production build.
-
-Example for Drag and Drop Sort:
+The TypeScript source lives in `src/`. Run the plugin in watch mode while developing:
 
 ```bash
-cd src/drag-drop-sort
+cd src
 npm install
 npm run dev
-npm run build
 ```
+
+Run `npm run build` for a production build.
 
 ### Chrome DevTools
 
-To inspect a plugin in Obsidian's live renderer, close any running Obsidian instance and start it with remote debugging enabled:
+To inspect the plugin in Obsidian's live renderer, close any running Obsidian instance and start it with remote debugging enabled:
 
 ```powershell
 & "C:\Program Files\Obsidian\Obsidian.exe" --remote-debugging-port=9222
