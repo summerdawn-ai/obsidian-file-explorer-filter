@@ -258,7 +258,7 @@ export default class FileExplorerFilterPlugin extends Plugin {
 		if (event) {
 			menu.showAtMouseEvent(event);
 		} else {
-			const button = this.buttons.values().next().value as HTMLElement | undefined;
+			const button = this.buttons.values().next().value;
 			if (button) {
 				const rect = button.getBoundingClientRect();
 				menu.showAtPosition({ x: rect.left, y: rect.bottom });
@@ -462,9 +462,11 @@ class FileExplorerFilterSettingTab extends PluginSettingTab {
 			.addToggle((toggle) =>
 				toggle
 					.setValue(this.plugin.isNameFilterEnabled())
-					.onChange(async (enabled) => {
-						await this.plugin.setNameFilterEnabled(enabled);
-						this.display();
+					.onChange((enabled) => {
+						void (async () => {
+							await this.plugin.setNameFilterEnabled(enabled);
+							this.display();
+						})();
 					}),
 			);
 

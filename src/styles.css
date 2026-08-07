@@ -1,5 +1,6 @@
-.file-explorer-filter-hidden {
-	display: none !important;
+/* Match the explorer row's specificity so this remains equivalent without !important. */
+.workspace-leaf-content .nav-files-container .tree-item.file-explorer-filter-hidden {
+	display: none;
 }
 
 .file-explorer-filter-button.is-active {
