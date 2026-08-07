@@ -1,5 +1,4 @@
-/* Obsidian's public API contains intentionally untyped internals; the plugin narrows them at its boundaries. */
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument -- Obsidian's public API contains intentionally untyped internals; the plugin narrows them at its boundaries. */
 import {
 	App,
 	Menu,
@@ -444,6 +443,8 @@ export default class FileExplorerFilterPlugin extends Plugin {
 			.includes(this.filterSettings.nameFilterText.toLocaleLowerCase());
 	}
 }
+
+/* eslint-enable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument */
 
 class FileExplorerFilterSettingTab extends PluginSettingTab {
 	constructor(
