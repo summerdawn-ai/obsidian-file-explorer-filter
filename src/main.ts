@@ -6,6 +6,7 @@ import {
 	PluginSettingTab,
 	setIcon,
 	Setting,
+	type SettingDefinitionItem,
 	TFolder,
 	WorkspaceLeaf,
 } from "obsidian";
@@ -448,6 +449,53 @@ class FileExplorerFilterSettingTab extends PluginSettingTab {
 		private readonly plugin: FileExplorerFilterPlugin,
 	) {
 		super(app, plugin);
+	}
+
+	getSettingDefinitions(): SettingDefinitionItem[] {
+		return [
+			{
+				name: "Show name filter",
+				desc: "Show a menu option that hides files and folders containing configured text.",
+				control: {
+					type: "toggle",
+					key: "nameFilterEnabled",
+					defaultValue: true,
+				},
+			},
+			{
+				name: "Name contains",
+				desc: "Case-insensitive text to match in file and folder names.",
+				control: {
+					type: "text",
+					key: "nameFilterText",
+					defaultValue: DEFAULT_SETTINGS.nameFilterText,
+					placeholder: DEFAULT_SETTINGS.nameFilterText,
+					disabled: () => !this.plugin.isNameFilterEnabled(),
+					validate: (value: string) =>
+						value.trim().length > 0 ? undefined : "Name filter text cannot be empty or whitespace.",
+				},
+			},
+		];
+	}
+
+	getControlValue(key: string): unknown {
+		switch (key) {
+			case "nameFilterEnabled":
+				return this.plugin.isNameFilterEnabled();
+			case "nameFilterText":
+				return this.plugin.getNameFilterText();
+			default:
+				return undefined;
+		}
+	}
+
+	setControlValue(key: string, value: unknown): void | Promise<void> {
+		if (key === "nameFilterEnabled" && typeof value === "boolean") {
+			return this.plugin.setNameFilterEnabled(value);
+		}
+		if (key === "nameFilterText" && typeof value === "string") {
+			return this.plugin.setNameFilterText(value).then(() => undefined);
+		}
 	}
 
 	display(): void {
