@@ -444,8 +444,6 @@ export default class FileExplorerFilterPlugin extends Plugin {
 	}
 }
 
-/* eslint-enable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument -- End the documented Obsidian API boundary exception. */
-
 class FileExplorerFilterSettingTab extends PluginSettingTab {
 	constructor(
 		app: App,
@@ -544,3 +542,5 @@ class FileExplorerFilterSettingTab extends PluginSettingTab {
 			});
 	}
 }
+
+/* eslint-enable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument -- End the documented Obsidian API boundary exception. */
