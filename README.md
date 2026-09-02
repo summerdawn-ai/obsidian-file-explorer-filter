@@ -6,6 +6,8 @@ Plugin for Obsidian to provide filtering on top-level folders in the File explor
 
 File Explorer Filter adds a filter button to Obsidian's File explorer to switch the view between All folders or one specific top-level folder. Switch context without maintaining multiple notebooks - like OneNote sections.
 
+![File Explorer Filter menu showing top-level folder filters in the Obsidian File explorer](docs/images/screenshot-desktop.png)
+
 ### Features
 
 - **Switch Folder Context**: Easily switch visual context between folders while staying in the same notebook.
